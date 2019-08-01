@@ -9,7 +9,7 @@ const indexLink = "file:///Users/user/milestone-tests/src/index.html";
 
 ## Installation
 
-please install nvm and then `nvm use` -> If needed, install the specified node version as requested
+please install nvm and then `nvm use` -> If needed, install the specified node version as requested ie, `nvm install 10.13.0`
 
 If you exported the project into this directory for the first time, please run `npm install` to install dependencies.
 
