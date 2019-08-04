@@ -1,0 +1,44 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/temp
+/public/assets/lang
+/assets/lang/report
+/public/assets/lang/en.js
+
+# dependencies
+/node_modules
+/bower_components
+/lib/remove/node_modules
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log*
+testem.log
+.DS_Store
+/temp
+.vscode/*
+jsconfig.json
+package-lock.json
+
+yarn-error.log
+
+# IntelliJ files
+*.iml
+.idea/
+
+/testdist
+*.tap
+coverage_*
+test_results.xml
+
+.node_modules.ember-try/
+bower.json.ember-try
+package.json.ember-try
+
+cache/

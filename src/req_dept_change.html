@@ -6,9 +6,11 @@
                                 </head>
 <h2>REQUEST DEPARTMENT CHANGE</h2>
      <br>
-            Name: <input type="text" id="2.name"><br>
-            <br><br>
-            Department: 
+     <form action="/action_page.php">
+
+            <label>Name: </label>
+            <input type="text" id="2.name"><br>
+            <label>Department: </label>
             <select id="2.dept">
                     <option value="EEE">EEE</option>
                     <option value="MECH">MECH</option>
@@ -21,6 +23,7 @@
       <br>
 <button class="button" onclick="change_department()">Request</button>
 <a class="button cancel-button" href="index.html">Go Back</a>
+</form>
 <br>
 <br>
 <p id="2.print1"></p>
