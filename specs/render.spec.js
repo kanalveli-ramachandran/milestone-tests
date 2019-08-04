@@ -26,6 +26,49 @@ const ENV = {
 
 };
 
+const DEPARTMENTS = ['EEE', 'MECH', 'CSE', 'CIVIL'];
+const SECTIONS = ['A', 'B', 'C'];
+
+const testFormDetails = async (options) => {
+  let {
+    title,
+    labelText,
+    submitValue,
+    hasTextInput = true,
+    hasDepartment,
+    hasSection
+  } = options || {};
+
+  let bodyText = await bs.page.$eval('body', el => el.innerText)
+  expect(bodyText).toContain(title);
+  
+  labelText.forEach(async (label, index) => {
+    let LabelTextValue = await bs.page.$eval(`label:nth-of-type(${index + 1})`, el => el.innerText)
+    expect(LabelTextValue).toContain(label);
+
+  })
+  if (hasTextInput) {
+    expect(await bs.page.$('input[type=text]')).toBeTruthy();
+  }
+
+  if(hasDepartment) {
+    let selectText = await bs.page.$eval('select', el => el.innerText)
+    DEPARTMENTS.forEach((dept) => {
+      expect(selectText).toContain(dept)
+    })
+  }
+
+  if(hasSection) {
+    let selectText = await bs.page.$eval('select', el => el.innerText)
+    SECTIONS.forEach((sec) => {
+      expect(selectText).toContain(sec)
+    })
+  }
+
+  let SubmitText = await bs.page.$eval('input[type=submit]', el => el.value)
+  expect(SubmitText).toContain(submitValue);
+}
+
 const REQUEST_DEPARTMENT_CHANGE = async () => bs.query( "a[href='req_dept_change.html']", "REQUEST_DEPARTMENT_CHANGE" );
 const ENROLL_DEPARTMENT = async () => bs.query( "a[href='enroll_dept.html']", "ENROLL_DEPARTMENT" );
 const CHANGE_SECTION = async () => bs.query( "a[href='req_section_change.html']", "CHANGE_SECTION" );
@@ -106,10 +149,12 @@ describe( "render", async () => {
       // Waiting for the given event
       await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
-      expect(await bs.page.$('input[type=text]')).toBeTruthy();
-      expect(bs.page.$('input[type=submit]')).toBeTruthy();
-      expect(bs.page.$('select')).toBeTruthy();
-      expect(bs.page.$('option')).toBeTruthy();
+      await testFormDetails({
+        title: 'REQUEST DEPARTMENT CHANGE',
+        labelText: ['Name', 'Department'],
+        submitValue: 'Request',
+        hasDepartment: true
+      });
     });
 
     test( "Request Section Change", async () => {
