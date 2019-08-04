@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html>
-                <head>
-                                <link rel="stylesheet" type="text/css" href="style.css">  
-                                </head>
-<body>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">  
+  </head>
+  <body>
+    <h2>ENROLL INTO A DEPARTMENT</h2>
+    <form class="form-details">
+      <label for='1.name'> Name: </label>
+      <input type="text" id="1.name"><br>
+      <label for='1.dept'> Department: </label>
+        
+      <select id="1.dept">
+        <option value="EEE">EEE</option>
+        <option value="MECH">MECH</option>
+        <option value="CSE">CSE</option>
+        <option value="CIVIL">CIVIL</option>
+      </select>
+      <input type="submit" class="button" onsubmit="enroll_department('1')" value="Register">
+      <a class="button cancel-button" href="index.html">Go Back</a>
+    </form>
 
-<h2>ENROLL INTO A DEPARTMENT</h2>
-  <br><br>
-     <form class="form-details">
-       <label> Name: </label>
-       <input type="text" id="1.name"><br>
-       <label> Department: </label>
-       
-<select id="1.dept">
-                    <option value="EEE">EEE</option>
-                    <option value="MECH">MECH</option>
-                    <option value="CSE">CSE</option>
-                    <option value="CIVIL">CIVIL</option>
-                  </select>
-                </form>
-
-<input type="submit" class="button" onclick="enroll_department('1')" value="Register">
-    <a class="button cancel-button" href="index.html">Go Back</a>
-<br>
-<br>
-<p id="1.print1"></p>
-<script src="web_app.js"></script>
-</body>
+    <br>
+    <br>
+    <p id="1.print1"></p>
+    <script src="web_app.js"></script>
+  </body>
 </html>

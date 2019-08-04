@@ -72,7 +72,14 @@ const VIEW_STUDENT_DETAILS = async () => bs.query( "a[href='view_student_details
 const BACK_TO_INDEX = async () => bs.query( "a[href='index.html']", "BACK_TO_INDEX" );
 const BACK_TO_VIEW_DETAILS = async () => bs.query( "a[href='view_details.html']", "BACK_TO_VIEW_DETAILS" );
 
-const indexLink = "file:///Users/user/milestone-tests/src/index.html";
+
+const readRootConfig = function() {
+  let { filename } = module;
+  let [root] = filename.split('specs/render.spec');
+  return `file://${root}src/index.html`;
+};
+
+const indexLink = readRootConfig();
 
 describe( "render", async () => {
   beforeAll(async () => {

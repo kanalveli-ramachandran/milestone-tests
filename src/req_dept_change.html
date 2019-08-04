@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html>
-<body>
-                <head>
-                                <link rel="stylesheet" type="text/css" href="style.css">  
-                                </head>
-<h2>REQUEST DEPARTMENT CHANGE</h2>
-     <br>
-     <form action="/action_page.php">
-
-            <label>Name: </label>
-            <input type="text" id="2.name"><br>
-            <label>Department: </label>
-            <select id="2.dept">
-                    <option value="EEE">EEE</option>
-                    <option value="MECH">MECH</option>
-                    <option value="CSE">CSE</option>
-                    <option value="CIVIL">CIVIL</option>
-                  </select>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">  
+  </head>
+  <body>
+    <h2>REQUEST DEPARTMENT CHANGE</h2>
+    <br>
+    <form action="/action_page.php">
+      <label for='2.name'>Name: </label>
+      <input type="text" id="2.name"><br>
+      <label for='2.dept'>Department: </label>
+      <select id="2.dept">
+        <option value="EEE">EEE</option>
+        <option value="MECH">MECH</option>
+        <option value="CSE">CSE</option>
+        <option value="CIVIL">CIVIL</option>
+      </select>
       <br>
       <br>
       <br>
       <br>
-<input type="submit" value="Request" class="button" onclick="change_department()">
-<a class="button cancel-button" href="index.html">Go Back</a>
-</form>
-<br>
-<br>
-<p id="2.print1"></p>
-<p id="2.print2"></p>
-<p id="2.print3"></p>
-<script src="web_app.js"></script>
-</body>
+      <input type="submit" value="Request" class="button" onsubmit="change_department()">
+      <a class="button cancel-button" href="index.html">Go Back</a>
+    </form>
+    <br>
+    <br>
+    <p id="2.print1"></p>
+    <p id="2.print2"></p>
+    <p id="2.print3"></p>
+    <script src="web_app.js"></script>
+  </body>
 </html>

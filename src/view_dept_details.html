@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html>
-<body>
-        <head>
-                <link rel="stylesheet" type="text/css" href="style.css">  
-                </head>
-<h2>FETCH DEPARTMENT DETAILS</h2>
-<br><br>
-<form>
-    <label>Department: </label>
-    <select id="4.dept2">
-            <option value="EEE">EEE</option>
-            <option value="MECH">MECH</option>
-            <option value="CSE">CSE</option>
-            <option value="CIVIL">CIVIL</option>
-        </select>
-        <br><br>
-        <label>Section: </label><br><br> 
-            <select id="4.sec1">
-                <option value='all'> Any </option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                  
-          </select>
-</form>
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css">  
+	</head>
 
-      <br>
-      <br>
-      <br>
-      <br>
-<input type="submit" value="Get List" class="button" onclick="print_section()">
-<a class="button cancel-button" href="view_details.html">Go Back</a>
-<br>
-<br>
-<p id="4.print2"></p>
-<script src="web_app.js"></script>
-</body>
+	<body>
+		<h2>FETCH DEPARTMENT DETAILS</h2>
+		<br><br>
+		<form>
+			<label for="4.dept2">Department: </label>
+			<select id="4.dept2">
+				<option value="EEE">EEE</option>
+				<option value="MECH">MECH</option>
+				<option value="CSE">CSE</option>
+				<option value="CIVIL">CIVIL</option>
+			</select>
+			<br><br>
+			<label for='4.sec1'>Section: </label><br><br> 
+			<select id="4.sec1">
+				<option value='all'> Any </option>
+				<option value="A">A</option>
+				<option value="B">B</option>
+				<option value="C">C</option>
+			</select>
+			<br>
+			<br>
+			<br>
+			<br>
+			<input type="submit" value="Get List" class="button" onclick="print_section()">
+			<a class="button cancel-button" href="view_details.html">Go Back</a>
+			<br>
+		</form>
+		<br>
+		<p id="4.print2"></p>
+		<script src="web_app.js"></script>
+	</body>
 </html>
