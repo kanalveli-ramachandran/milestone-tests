@@ -35,11 +35,13 @@ const testFormDetails = async (options) => {
     labelText = [],
     selectData = [],
     submitValue,
-    hasTextInput = true
+    hasTextInput = false
   } = options || {};
 
-  let bodyText = await bs.page.$eval('body', el => el.innerText)
-  expect(bodyText).toContain(title);
+  if (title) {
+    let bodyText = await bs.page.$eval('body', el => el.innerText)
+    expect(bodyText).toContain(title);
+  }
 
   if (labelText) {
     let labelOptions = await bs.page.$$('label');
@@ -66,8 +68,10 @@ const testFormDetails = async (options) => {
     expect(await bs.page.$('input[type=text]')).toBeTruthy();
   }
 
-  let SubmitText = await bs.page.$eval('[type=submit]', el => el.value || el.innerText)
-  expect(SubmitText).toContain(submitValue);
+  if (submitValue) {
+    let SubmitText = await bs.page.$eval('[type=submit]', el => el.value || el.innerText)
+    expect(SubmitText).toContain(submitValue);
+  }
 }
 
 const REQUEST_DEPARTMENT_CHANGE = async () => bs.query( "a[href='req_dept_change.html']", "REQUEST_DEPARTMENT_CHANGE" );
@@ -123,7 +127,7 @@ describe( "render", async () => {
       await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
     });
 
-    test( "Enroll Department Links - Details in form", async () => {
+    test( "Enroll Department Links - Details in form - Select", async () => {
       let result, assert;
 
       // Navigating to file:///Users/user/milestone-tests/src/index.html
@@ -136,10 +140,75 @@ describe( "render", async () => {
       await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
       await testFormDetails({
-        title: 'ENROLL INTO A DEPARTMENT',
-        labelText: ['Name', 'Department'],
-        submitValue: 'Register',
+        hasTextInput: true
+      });
+    });
+
+    test( "Enroll Department Links - Details in form - Select", async () => {
+      let result, assert;
+
+      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await ENROLL_DEPARTMENT() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      await testFormDetails({
         selectData: ['department']
+      });
+    });
+
+    test( "Enroll Department Links - Details in form - title", async () => {
+      let result, assert;
+
+      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await ENROLL_DEPARTMENT() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      await testFormDetails({
+        title: 'ENROLL INTO A DEPARTMENT'
+      });
+    });
+
+    test( "Enroll Department Links - Details in form - Labels", async () => {
+      let result, assert;
+
+      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await ENROLL_DEPARTMENT() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      await testFormDetails({
+        labelText: ['Name', 'Department']
+      });
+    });
+
+    test( "Enroll Department Links - Details in form - Submit", async () => {
+      let result, assert;
+
+      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await ENROLL_DEPARTMENT() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      await testFormDetails({
+        submitValue: 'Register'
       });
     });
 
@@ -166,7 +235,7 @@ describe( "render", async () => {
       await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
     });
 
-    test( "Request Department Change - Details in form", async () => {
+    test( "Request Department Change - Details in form - title", async () => {
       let result, assert;
 
       await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
@@ -178,9 +247,70 @@ describe( "render", async () => {
       await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
       await testFormDetails({
-        title: 'REQUEST DEPARTMENT CHANGE',
-        labelText: ['Roll Number', 'Department'],
-        submitValue: 'Request',
+        title: 'REQUEST DEPARTMENT CHANGE'
+      });
+    });
+
+    test( "Request Department Change - Details in form - input", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await REQUEST_DEPARTMENT_CHANGE() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      await testFormDetails({
+        hasTextInput: true
+      });
+    });
+
+    test( "Request Department Change - Details in form - Label", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await REQUEST_DEPARTMENT_CHANGE() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      await testFormDetails({
+        labelText: ['Roll Number', 'Department']
+      });
+    });
+
+    test( "Request Department Change - Details in form - submit", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await REQUEST_DEPARTMENT_CHANGE() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      await testFormDetails({
+        submitValue: 'Request'
+      });
+    });
+
+    test( "Request Department Change - Details in form - select", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await REQUEST_DEPARTMENT_CHANGE() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      await testFormDetails({
         selectData: ['department']
       });
     });
@@ -208,7 +338,7 @@ describe( "render", async () => {
     });
 
 
-    test( "Request Section Change - Details in form", async () => {
+    test( "Request Section Change - Details in form - label", async () => {
       let result, assert;
 
       await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
@@ -220,9 +350,70 @@ describe( "render", async () => {
       await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
       await testFormDetails({
-        title: 'REQUEST SECTION CHANGE',
-        labelText: ['Roll Number', 'Section'],
-        submitValue: 'Request',
+        title: 'REQUEST SECTION CHANGE'
+      });
+    });
+
+    test( "Request Section Change - Details in form - input", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await CHANGE_SECTION() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      await testFormDetails({
+        hasTextInput: true
+      });
+    });
+
+    test( "Request Section Change - Details in form - label", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await CHANGE_SECTION() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      await testFormDetails({
+        labelText: ['Roll Number', 'Section']
+      });
+    });
+
+    test( "Request Section Change - Details in form - submit", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await CHANGE_SECTION() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      await testFormDetails({
+        submitValue: 'Request'
+      });
+    });
+
+    test( "Request Section Change - Details in form - select", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await CHANGE_SECTION() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      await testFormDetails({
         selectData: ['section']
       });
     });
@@ -277,7 +468,7 @@ describe( "render", async () => {
     });
 
 
-    test( "View Details - Department - Check Form", async () => {
+    test( "View Details - Department - Check Form - title", async () => {
       let result, assert;
 
       await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
@@ -296,14 +487,78 @@ describe( "render", async () => {
 
 
       await testFormDetails({
-        title: 'FETCH DEPARTMENT DETAILS',
-        labelText: ['Department', 'Section'],
-        submitValue: 'Get List',
-        selectData: ['department', 'section'],
-        hasTextInput: false
+        title: 'FETCH DEPARTMENT DETAILS'
       });
     });
 
+    test( "View Details - Department - Check Form - label", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await VIEW_DETAILS() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await VIEW_DEPARTMENT_DETAILS() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+      await testFormDetails({
+        labelText: ['Department', 'Section']
+      });
+    });
+
+    test( "View Details - Department - Check Form - submit", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await VIEW_DETAILS() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await VIEW_DEPARTMENT_DETAILS() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+      await testFormDetails({
+        submitValue: 'Get List'
+      });
+    });
+
+    test( "View Details - Department - Check Form - select", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await VIEW_DETAILS() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await VIEW_DEPARTMENT_DETAILS() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+      await testFormDetails({
+        selectData: ['department', 'section']
+      });
+    });
 
     test( "View Details - Student", async () => {
       let result, assert;
@@ -333,7 +588,7 @@ describe( "render", async () => {
       await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
     });
 
-    test( "View Details - Student - Check form", async () => {
+    test( "View Details - Student - Check form - title", async () => {
       let result, assert;
 
       await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
@@ -351,12 +606,75 @@ describe( "render", async () => {
       // Waiting for the given event
       await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
       await testFormDetails({
-        title: 'FETCH STUDENT DETAILS',
-        labelText: ['Roll Number'],
-        submitValue: 'Request',
+        title: 'FETCH STUDENT DETAILS'
+      });
+    });
+
+    test( "View Details - Student - Check form - label", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await VIEW_DETAILS() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+      // Emulating mouse click
+      await ( await VIEW_STUDENT_DETAILS() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+      await testFormDetails({
+        labelText: ['Roll Number']
+      });
+    });
+
+    test( "View Details - Student - Check form - submit", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await VIEW_DETAILS() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+      // Emulating mouse click
+      await ( await VIEW_STUDENT_DETAILS() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+      await testFormDetails({
+        submitValue: 'Request'
+      });
+    });
+
+    test( "View Details - Student - Check form - input", async () => {
+      let result, assert;
+
+      await bs.page.goto( indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+      // Emulating mouse click
+      await ( await VIEW_DETAILS() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+      // Emulating mouse click
+      await ( await VIEW_STUDENT_DETAILS() ).click( {"button":"left"} );
+
+      // Waiting for the given event
+      await bs.page.waitForNavigation( {"timeout":3000,"waitUntil":"domcontentloaded"} );
+      await testFormDetails({
+        hasTextInput: true
       });
     });
   });
-
 
 });
