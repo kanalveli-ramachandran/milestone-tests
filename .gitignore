@@ -1,17 +1,14 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
 /tmp
 /temp
-/public/assets/lang
-/assets/lang/report
-/public/assets/lang/en.js
 
 # dependencies
-/node_modules
-/bower_components
-/lib/remove/node_modules
+/milestone-2/node_modules
+/milestone-3/node_modules
+/milestone-2/lib/remove/node_modules
+/milestone-3/lib/remove/node_modules
 
 # misc
 /.sass-cache
