@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>College Registration </title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body >
+    <form class="registration-form">
+      <div class="form-group">
+        <label>Name </label>
+        <input type="text" name="name" maxlength="100" required>
+      </div>
+      <div>
+        <label>Phone number </label>
+        <input type="number" name="phno" maxlength="10" required>
+      </div>
+      <div>
+        <label>Email Address </label>
+        <input type="email" name="emailaddress" required pattern="^[A-Za-z0-9.]+@college.edu$">
+      </div>
+      <div>
+        <label>Primary Choice for Department </label>
+        <select name="department1" class="department">
+          <option value="EEE">EEE</option>
+          <option value="MECH">MECH</option>
+          <option value="CSE">CSE</option>
+          <option value="CIVIL">CIVIL</option>
+        </select>
+      </div>
+      <div>
+        <label>Secondary Choice for Department </label>
+        <select name="department2" class="department">
+          <option value="EEE" disabled>EEE</option>
+          <option value="MECH">MECH</option>
+          <option value="CSE">CSE</option>
+          <option value="CIVIL">CIVIL</option>
+        </select>
+      </div>
+      <button class="button" type="submit"> Submit </button>
+    </form>
+    <div id="results" class="results-section hide"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
