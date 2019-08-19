@@ -1,10 +1,12 @@
-# E2E Test Project
+# Milestone Tests
 
-Collection of tests for Milestone 2
+Collection of tests for Milestone 2 are under milestone-2 directory
 
 We've added a sample test code from another student into the `src` directory. Please replace that with the students test folder's content before running the test.
 
 Please ensure that an index.html is present. Also, the tests have been written with the given mocks and filenames as the pattern. Any deviations will result in test failures
+
+Similarly, Collection of tests for Milestone 3 are under milestone-3 directory
 
 ## Installation
 
