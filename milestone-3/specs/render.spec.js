@@ -84,7 +84,7 @@ describe("render", async () => {
     test("Check valid form", async () => {
       let result, assert;
 
-      
+
       await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
 
@@ -174,4 +174,48 @@ describe("render", async () => {
     });
   });
 
+  test("Check invalid form - invalid email", async () => {
+    let result, assert;
+
+
+    await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+    await testFormResults({
+      phno: '3454353',
+      name: 'sdcdsccbdsjhcbsdhjcbsdhjcbsjchb',
+      emailaddress: 'scdscds',
+      department1: 'CIVIL'
+    }, 'emailaddress');
+  });
+
+  test("Check invalid form - invalid college email", async () => {
+    let result, assert;
+
+
+    await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+    await testFormResults({
+      phno: '3454353',
+      name: 'sdcdsccbdsjhcbsdhjcbsdhjcbsjchb',
+      emailaddress: 'scdscds@gmail.com',
+      department1: 'CIVIL'
+    }, 'emailaddress');
+  });
+
+  test("Check invalid form - invalid characters", async () => {
+    let result, assert;
+
+
+    await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+    await testFormResults({
+      phno: '3454353',
+      name: 'sdcdsccbdsjhcbsdhjcbsdhjcbsjchb',
+      emailaddress: 'scds_cds@college.edu',
+      department1: 'CIVIL'
+    }, 'emailaddress');
+  });
 });
