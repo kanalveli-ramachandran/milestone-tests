@@ -66,6 +66,30 @@ const testFormResults = async (options, validate) => {
   }
 }
 
+const stricterFormResults = async (options, validate) => {
+  for (key in options) {
+    let value = options[key];
+    if (value) {
+      await bs.page.$eval(`[name="${key}"]`, (el, value) => el.value = value, value)
+    }
+  }
+
+  await ( await SUBMIT_ENROLLMENT() ).click( {"button":"left"} );
+
+  let bodyText = await bs.page.$eval('#results', el => el.innerText)
+  for (key in options) {
+    let value = options[key];
+    if (validate) {
+      if(key === validate) {
+        expect(bodyText).not.toContain(`${key}: ${value}`);
+        return;
+      }
+    } else {
+      expect(bodyText).toContain(`${key}: ${value}`);
+    }
+  }
+}
+
 const SUBMIT_ENROLLMENT = async () => bs.query( "[type='submit']", "SUBMIT_ENROLLMENT" );
 
 
@@ -247,6 +271,38 @@ describe("render", async () => {
         emailaddress: 'scds..cds@college.edu',
         department1: 'CIVIL'
       });
+    });
+
+    test("Check Strict invalid form - name exceeds max length", async () => {
+      let result, assert;
+
+
+      await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+      await stricterFormResults({
+        name: 'sdcdsccbdsjhcbsdhjcbsdhjcbsjchbsdjhcbsdjhbcshjdbcsjhdcbsjhcbsdhjcbsdchjsbdcjhsbcjshcbsjhdcbsjhcbsjhcbsjhdcbsdjhcbsdc',
+        phno: '345435345',
+        emailaddress: 'scdscds.dfvdfv@college.edu',
+        department1: 'CIVIL',
+        department2: 'CSE'
+      }, 'name');
+    });
+
+    test("Check Strict invalid form - secondary department choice", async () => {
+      let result, assert;
+
+
+      await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+      await stricterFormResults({
+        phno: '34543534',
+        name: 'sdcdsccbdsjhcbsdhjcbsdhjcbsjchb',
+        emailaddress: 'scdscds.dfvdfv@college.edu',
+        department1: 'CIVIL',
+        department2: 'CIVIL'
+      }, 'department2');
     });
   });
 });
