@@ -84,7 +84,7 @@ describe("render", async () => {
     test("Check valid form", async () => {
       let result, assert;
 
-      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      
       await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
 
@@ -100,7 +100,7 @@ describe("render", async () => {
     test("Check valid form - default secondary department choice", async () => {
       let result, assert;
 
-      // Navigating to file:///Users/user/milestone-tests/src/index.html
+
       await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
 
@@ -115,7 +115,7 @@ describe("render", async () => {
     test("Check invalid form - name exceeds max length", async () => {
       let result, assert;
 
-      // Navigating to file:///Users/user/milestone-tests/src/index.html
+
       await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
 
@@ -131,7 +131,7 @@ describe("render", async () => {
     test("Check invalid form - phno exceeds max length", async () => {
       let result, assert;
 
-      // Navigating to file:///Users/user/milestone-tests/src/index.html
+
       await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
 
@@ -147,7 +147,7 @@ describe("render", async () => {
     test("Check invalid form - secondary department choice", async () => {
       let result, assert;
 
-      // Navigating to file:///Users/user/milestone-tests/src/index.html
+
       await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
 
@@ -163,7 +163,7 @@ describe("render", async () => {
     test("Test disabled - secondary department choice", async () => {
       let result, assert;
 
-      // Navigating to file:///Users/user/milestone-tests/src/index.html
+
       await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
       expect(await bs.page.$('[name="department2"] option[value="EEE"][disabled]')).toBeTruthy();
       await bs.page.select('[name="department1"]', 'CIVIL');

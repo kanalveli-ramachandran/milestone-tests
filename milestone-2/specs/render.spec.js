@@ -107,7 +107,7 @@ describe( "render", async () => {
     test( "Enroll Department Links", async () => {
       let result, assert;
 
-      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      
       await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
       // Emulating mouse click
@@ -130,7 +130,7 @@ describe( "render", async () => {
     test( "Enroll Department Links - Details in form - Select", async () => {
       let result, assert;
 
-      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      
       await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
       // Emulating mouse click
@@ -147,7 +147,7 @@ describe( "render", async () => {
     test( "Enroll Department Links - Details in form - Select", async () => {
       let result, assert;
 
-      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      
       await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
       // Emulating mouse click
@@ -164,7 +164,7 @@ describe( "render", async () => {
     test( "Enroll Department Links - Details in form - title", async () => {
       let result, assert;
 
-      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      
       await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
       // Emulating mouse click
@@ -181,7 +181,7 @@ describe( "render", async () => {
     test( "Enroll Department Links - Details in form - Labels", async () => {
       let result, assert;
 
-      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      
       await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
       // Emulating mouse click
@@ -198,7 +198,7 @@ describe( "render", async () => {
     test( "Enroll Department Links - Details in form - Submit", async () => {
       let result, assert;
 
-      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      
       await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
 
       // Emulating mouse click
