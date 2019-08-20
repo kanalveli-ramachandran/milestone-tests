@@ -273,6 +273,10 @@ describe("render", async () => {
       });
     });
 
+    /* Strict Validation Tests - These are tests on validations when the user direct;y sets the value of
+       an input directly.. The maxlength and onchange validations will fail in this case.
+    */
+
     test("Check Strict invalid form - name exceeds max length", async () => {
       let result, assert;
 
