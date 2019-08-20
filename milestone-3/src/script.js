@@ -33,10 +33,19 @@
   }
 
   var validateResults = function(data) {
-    var isValid = true;
+    let { name, phno, department1, department2, emailaddress } = data || {};
     // 4. Check if the data passes all the validations here
+    if (name.length > 100) {
+      return false;
+    }
+    if (phno.toString().length > 10) {
+      return false;
+    }
+    if (department1 === department2) {
+      return false;
+    }
 
-    return isValid;
+    return emailaddress.match('^[A-Za-z0-9.]+@college.edu$')
   };
 
   var onSubmit = function(event) {

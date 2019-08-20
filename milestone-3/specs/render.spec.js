@@ -38,7 +38,7 @@ const readRootConfig = function() {
 
 const indexLink = readRootConfig();
 
-const testFormResults = async (options) => {
+const testFormResults = async (options, validate) => {
   for (key in options) {
     let value = options[key];
     if (value) {
@@ -54,7 +54,15 @@ const testFormResults = async (options) => {
 
   let bodyText = await bs.page.$eval('#results', el => el.innerText)
   for (key in options) {
-    expect(bodyText).toContain(`${key}: ${options[key]}`);
+    let value = options[key];
+    if (validate) {
+      if(key === validate) {
+        expect(bodyText).not.toContain(`${key}: ${value}`);
+        return;
+      }
+    } else {
+      expect(bodyText).toContain(`${key}: ${value}`);
+    }
   }
 }
 
@@ -73,7 +81,7 @@ describe("render", async () => {
 
   describe("Check Student Enrollment", async () => {
 
-    test("Check name validation", async () => {
+    test("Check valid form", async () => {
       let result, assert;
 
       // Navigating to file:///Users/user/milestone-tests/src/index.html
@@ -87,6 +95,82 @@ describe("render", async () => {
         department1: 'CIVIL',
         department2: 'CSE'
       });
+    });
+
+    test("Check valid form - default secondary department choice", async () => {
+      let result, assert;
+
+      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+      await testFormResults({
+        phno: '3454353',
+        name: 'sdcdsccbdsjhcbsdhjcbsdhjcbsjchb',
+        emailaddress: 'scdscds.dfvdfv@college.edu',
+        department1: 'CIVIL'
+      });
+    });
+
+    test("Check invalid form - name exceeds max length", async () => {
+      let result, assert;
+
+      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+      await testFormResults({
+        name: 'sdcdsccbdsjhcbsdhjcbsdhjcbsjchbsdjhcbsdjhbcshjdbcsjhdcbsjhcbsdhjcbsdchjsbdcjhsbcjshcbsjhdcbsjhcbsjhcbsjhdcbsdjhcbsdc',
+        phno: '345435345',
+        emailaddress: 'scdscds.dfvdfv@college.edu',
+        department1: 'CIVIL',
+        department2: 'CSE'
+      }, 'name');
+    });
+
+    test("Check invalid form - phno exceeds max length", async () => {
+      let result, assert;
+
+      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+      await testFormResults({
+        phno: '3454353453242346765',
+        name: 'sdcdsccbdsjhcbsdhjcbsdhjcbsjchb',
+        emailaddress: 'scdscds.dfvdfv@college.edu',
+        department1: 'CIVIL',
+        department2: 'CSE'
+      }, 'phno');
+    });
+
+    test("Check invalid form - secondary department choice", async () => {
+      let result, assert;
+
+      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+
+
+      await testFormResults({
+        phno: '34543534',
+        name: 'sdcdsccbdsjhcbsdhjcbsdhjcbsjchb',
+        emailaddress: 'scdscds.dfvdfv@college.edu',
+        department1: 'CIVIL',
+        department2: 'CIVIL'
+      }, 'department2');
+    });
+
+    test("Test disabled - secondary department choice", async () => {
+      let result, assert;
+
+      // Navigating to file:///Users/user/milestone-tests/src/index.html
+      await bs.page.goto(indexLink, {"timeout":3000,"waitUntil":"domcontentloaded"} );
+      expect(await bs.page.$('[name="department2"] option[value="EEE"][disabled]')).toBeTruthy();
+      await bs.page.select('[name="department1"]', 'CIVIL');
+      expect(await bs.page.$('[name="department2"] option[value="CIVIL"][disabled]')).toBeTruthy();
+      await bs.page.select('[name="department1"]', 'CSE');
+      expect(await bs.page.$('[name="department2"] option[value="CIVIL"][disabled]')).toBeFalsy();
+      expect(await bs.page.$('[name="department2"] option[value="CSE"][disabled]')).toBeTruthy();
     });
   });
 
