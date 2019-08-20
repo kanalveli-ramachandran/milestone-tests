@@ -39,28 +39,23 @@ const readRootConfig = function() {
 const indexLink = readRootConfig();
 
 const testFormResults = async (options) => {
-  TEXT_FORM_FIELDS.forEach(async (key) => {
+  for (key in options) {
     let value = options[key];
     if (value) {
-      await bs.page.type(`[name="${key}"]`, value);
+      if (TEXT_FORM_FIELDS.includes(key)) {
+        await bs.page.type(`[name="${key}"]`, value);
+      } else {
+        await bs.page.select(`[name="${key}"]`, value);
+      }
     }
-  });
-
-  SELECT_FORM_FIELDS.forEach(async (key) => {
-    let value = options[key];
-    if (value) {
-      await bs.page.select(`[name="${key}"]`, value);
-    }
-  });
+  }
 
   await ( await SUBMIT_ENROLLMENT() ).click( {"button":"left"} );
+
   let bodyText = await bs.page.$eval('#results', el => el.innerText)
-
-  var expResultText = (Object.entries(options) || []).reduce(function(innerHtml, [key, value]) {
-    return `${innerHtml}${key}: ${value}`;
-  }, '');
-
-  expect(bodyText).toContain(expResultText);
+  for (key in options) {
+    expect(bodyText).toContain(`${key}: ${options[key]}`);
+  }
 }
 
 const SUBMIT_ENROLLMENT = async () => bs.query( "[type='submit']", "SUBMIT_ENROLLMENT" );
